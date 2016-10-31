@@ -1,0 +1,46 @@
+nfa:
+ab : (1) /a> (2) /b> ((3))
+
+a? : (1) /a> (2) /?> ((3))
+
+? : (1) /?> ((2))
+
+a* : (1) /a> ((2)) /*<
+
+"?*" : (1) /?> ((2)) /*<
+
+"*?" : (1) /*< /~> (2) /?> ((3))
+
+
+"a*b" : (1) /a> (2) /*< /~> (3) /b> ((4))
+
+"" : ((1))
+
+"*" : ((1)) /*<
+
+"?" : (1) /?> ((2))
+
+Algorithm:
+start, prev = (1)
+
+for each c in pattern:
+	next = new state
+
+	case curr char)
+		on: ?, prev /?> (next)
+		on: *, prev /*<
+		     , if look ahead exists, prev /~> (next)
+		any other c, prev /c> (next)
+
+	prev = next
+
+make prev final
+
+
+
+
+"", ""
+
+"", "*"
+
+"", "?"
